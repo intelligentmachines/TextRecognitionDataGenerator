@@ -14,14 +14,15 @@ def create_strings_from_file(filename, count):
     strings = []
 
     with open(filename, "r", encoding="utf8") as f:
-        lines = [l[0:200] for l in f.read().splitlines() if len(l) > 0]
+        lines = [l for l in f.read().splitlines() if len(l) > 0]
         if len(lines) == 0:
             raise Exception("No lines could be read in file")
-        while len(strings) < count:
-            if len(lines) >= count - len(strings):
-                strings.extend(lines[0: count - len(strings)])
-            else:
-                strings.extend(lines)
+        #while len(strings) < count:
+        #    if len(lines) >= count - len(strings):
+        #        strings.extend(lines[0: count - len(strings)])
+        #    else:
+        #        strings.extend(lines)
+        strings.extend(lines)
 
     return strings
 

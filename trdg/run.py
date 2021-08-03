@@ -382,7 +382,13 @@ def main():
     if args.use_wikipedia:
         strings = create_strings_from_wikipedia(args.length, args.count, args.language)
     elif args.input_file != "":
-        strings = create_strings_from_file(args.input_file, args.count)
+        strings1 = create_strings_from_file(args.input_file, args.count)
+        for _ in range(0, args.count):
+            current_string = ""
+            for _ in range(0, rnd.randint(1, args.length) if args.random else args.length):
+                current_string += "".join(rnd.choice(strings1))
+                current_string += " "
+            strings.append(current_string[:-1])
     elif args.random_sequences:
         strings = create_strings_randomly(
             args.length,
