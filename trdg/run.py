@@ -1,14 +1,13 @@
 import argparse
-import os, errno
+import errno
+from multiprocessing import Pool
+import os
+import random as rnd
 import sys
+from tqdm import tqdm
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
-import random as rnd
-import string
-import sys
-
-from tqdm import tqdm
 from trdg.string_generator import (
     create_strings_from_dict,
     create_strings_from_file,
@@ -17,14 +16,13 @@ from trdg.string_generator import (
 )
 from trdg.utils import load_dict, load_fonts
 from trdg.data_generator import FakeTextDataGenerator
-from multiprocessing import Pool
 
 
 def margins(margin):
-    margins = margin.split(",")
-    if len(margins) == 1:
-        return [int(margins[0])] * 4
-    return [int(m) for m in margins]
+    margins_ = margin.split(",")
+    if len(margins_) == 1:
+        return [int(margins_[0])] * 4
+    return [int(m) for m in margins_]
 
 
 def parse_arguments():
@@ -51,7 +49,8 @@ def parse_arguments():
         "--language",
         type=str,
         nargs="?",
-        help="The language to use, should be fr (French), en (English), es (Spanish), de (German), ar (Arabic), cn (Chinese), or hi (Hindi)",
+        help="The language to use, should be fr (French), en (English), es (Spanish), de (German), ar (Arabic), "
+             "cn (Chinese), or hi (Hindi)",
         default="en",
     )
     parser.add_argument(
@@ -66,7 +65,8 @@ def parse_arguments():
         "-rs",
         "--random_sequences",
         action="store_true",
-        help="Use random sequences as the source text for the generation. Set '-let','-num','-sym' to use letters/numbers/symbols. If none specified, using all three.",
+        help="Use random sequences as the source text for the generation. Set '-let','-num','-sym' to use "
+             "letters/numbers/symbols. If none specified, using all three.",
         default=False,
     )
     parser.add_argument(
@@ -95,7 +95,8 @@ def parse_arguments():
         "--length",
         type=int,
         nargs="?",
-        help="Define how many words should be included in each generated sample. If the text source is Wikipedia, this is the MINIMUM length",
+        help="Define how many words should be included in each generated sample. If the text source is Wikipedia, "
+             "this is the MINIMUM length",
         default=1,
     )
     parser.add_argument(
@@ -184,7 +185,8 @@ def parse_arguments():
         "-na",
         "--name_format",
         type=int,
-        help="Define how the produced files will be named. 0: [TEXT]_[ID].[EXT], 1: [ID]_[TEXT].[EXT] 2: [ID].[EXT] + one file labels.txt containing id-to-label mappings",
+        help="Define how the produced files will be named. 0: [TEXT]_[ID].[EXT], 1: [ID]_[TEXT].[EXT] 2: [ID].[EXT] + "
+             "one file labels.txt containing id-to-label mappings",
         default=0,
     )
     parser.add_argument(
@@ -199,7 +201,8 @@ def parse_arguments():
         "--distorsion",
         type=int,
         nargs="?",
-        help="Define a distorsion applied to the resulting image. 0: None (Default), 1: Sine wave, 2: Cosine wave, 3: Random",
+        help="Define a distorsion applied to the resulting image. 0: None (Default), 1: Sine wave, 2: Cosine wave, "
+             "3: Random",
         default=0,
     )
     parser.add_argument(
@@ -207,7 +210,8 @@ def parse_arguments():
         "--distorsion_orientation",
         type=int,
         nargs="?",
-        help="Define the distorsion's orientation. Only used if -d is specified. 0: Vertical (Up and down), 1: Horizontal (Left and Right), 2: Both",
+        help="Define the distorsion's orientation. Only used if -d is specified. 0: Vertical (Up and down), "
+             "1: Horizontal (Left and Right), 2: Both",
         default=0,
     )
     parser.add_argument(
@@ -215,7 +219,8 @@ def parse_arguments():
         "--width",
         type=int,
         nargs="?",
-        help="Define the width of the resulting image. If not set it will be the width of the text + 10. If the width of the generated text is bigger that number will be used",
+        help="Define the width of the resulting image. If not set it will be the width of the text + 10. If the width "
+             "of the generated text is bigger that number will be used",
         default=-1,
     )
     parser.add_argument(
@@ -223,7 +228,8 @@ def parse_arguments():
         "--alignment",
         type=int,
         nargs="?",
-        help="Define the alignment of the text in the image. Only used if the width parameter is set. 0: left, 1: center, 2: right",
+        help="Define the alignment of the text in the image. Only used if the width parameter is set. 0: left, "
+             "1: center, 2: right",
         default=1,
     )
     parser.add_argument(
@@ -329,7 +335,8 @@ def parse_arguments():
         "--image_mode",
         type=str,
         nargs="?",
-        help="Define the image mode to be used. RGB is default, L means 8-bit grayscale images, 1 means 1-bit binary images stored with one pixel per byte, etc.",
+        help="Define the image mode to be used. RGB is default, L means 8-bit grayscale images, 1 means 1-bit binary "
+             "images stored with one pixel per byte, etc.",
         default="RGB",
     )
     return parser.parse_args()
@@ -352,10 +359,9 @@ def main():
 
     # Creating word list
     if args.dict:
-        lang_dict = []
         if os.path.isfile(args.dict):
             with open(args.dict, "r", encoding="utf8", errors="ignore") as d:
-                lang_dict = [l for l in d.read().splitlines() if len(l) > 0]
+                lang_dict = [ln for ln in d.read().splitlines() if len(ln) > 0]
         else:
             sys.exit("Cannot open dict")
     else:
@@ -386,7 +392,7 @@ def main():
         for _ in range(0, args.count):
             current_string = ""
             for _ in range(0, rnd.randint(1, args.length) if args.random else args.length):
-                current_string += "".join(rnd.choice(strings1))
+                current_string += rnd.choice(strings1)
                 current_string += " "
             strings.append(current_string[:-1])
     elif args.random_sequences:
@@ -423,6 +429,10 @@ def main():
         strings = [x.upper() for x in strings]
     if args.case == "lower":
         strings = [x.lower() for x in strings]
+    if args.case == "common":
+        strings = [x.title() for x in strings]
+    if args.case == "name":
+        strings = [x.upper() if rnd.randint(1, 6) != 5 else x.title() for x in strings]
 
     string_count = len(strings)
 
