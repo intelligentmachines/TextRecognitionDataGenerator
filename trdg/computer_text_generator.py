@@ -13,7 +13,7 @@ def generate(
     character_spacing,
     fit,
     word_split,
-    stroke_width=0, 
+    stroke_width=0,
     stroke_fill="#282828",
 ):
     if orientation == 0:
@@ -32,23 +32,22 @@ def generate(
     elif orientation == 1:
         return _generate_vertical_text(
             text, font, text_color, font_size, space_width, character_spacing, fit,
-            stroke_width, stroke_fill, 
+            stroke_width, stroke_fill,
         )
     else:
         raise ValueError("Unknown orientation " + str(orientation))
 
 
 def _generate_horizontal_text(
-    text, font, text_color, font_size, space_width, character_spacing, fit, word_split, 
+    text, font, text_color, font_size, space_width, character_spacing, fit, word_split,
     stroke_width=0, stroke_fill="#282828"
 ):
     # specify font size range here
-    font_size = rnd.randint(8,12)
+    font_size = rnd.randint(8, 12)
 
     image_font = ImageFont.truetype(font=font, size=font_size)
 
     space_width = int(image_font.getsize(" ")[0] * space_width)
-
     if word_split:
         splitted_text = []
         for w in text.split(" "):
@@ -57,7 +56,6 @@ def _generate_horizontal_text(
         splitted_text.pop()
     else:
         splitted_text = text
-
     piece_widths = [
         image_font.getsize(p)[0] if p != " " else space_width for p in splitted_text
     ]
@@ -87,14 +85,18 @@ def _generate_horizontal_text(
     stroke_c1, stroke_c2 = stroke_colors[0], stroke_colors[-1]
 
     stroke_fill = (
-        rnd.randint(min(stroke_c1[0], stroke_c2[0]), max(stroke_c1[0], stroke_c2[0])),
-        rnd.randint(min(stroke_c1[1], stroke_c2[1]), max(stroke_c1[1], stroke_c2[1])),
-        rnd.randint(min(stroke_c1[2], stroke_c2[2]), max(stroke_c1[2], stroke_c2[2])),
+        rnd.randint(min(stroke_c1[0], stroke_c2[0]),
+                    max(stroke_c1[0], stroke_c2[0])),
+        rnd.randint(min(stroke_c1[1], stroke_c2[1]),
+                    max(stroke_c1[1], stroke_c2[1])),
+        rnd.randint(min(stroke_c1[2], stroke_c2[2]),
+                    max(stroke_c1[2], stroke_c2[2])),
     )
 
     for i, p in enumerate(splitted_text):
         txt_img_draw.text(
-            (sum(piece_widths[0:i]) + i * character_spacing * int(not word_split), 0),
+            (sum(piece_widths[0:i]) + i *
+             character_spacing * int(not word_split), 0),
             p,
             fill=fill,
             font=image_font,
@@ -102,7 +104,8 @@ def _generate_horizontal_text(
             stroke_fill=stroke_fill,
         )
         txt_mask_draw.text(
-            (sum(piece_widths[0:i]) + i * character_spacing * int(not word_split), 0),
+            (sum(piece_widths[0:i]) + i *
+             character_spacing * int(not word_split), 0),
             p,
             fill=((i + 1) // (255 * 255), (i + 1) // 255, (i + 1) % 255),
             font=image_font,
@@ -121,8 +124,8 @@ def _generate_vertical_text(
     stroke_width=0, stroke_fill="#282828"
 ):
     # specify font size range here
-    font_size = rnd.randint(8,12)
-    
+    font_size = rnd.randint(8, 12)
+
     image_font = ImageFont.truetype(font=font, size=font_size)
 
     space_height = int(image_font.getsize(" ")[1] * space_width)
@@ -149,7 +152,7 @@ def _generate_vertical_text(
     )
 
     stroke_colors = [ImageColor.getrgb(c) for c in stroke_fill.split(",")]
-    stroke_c1, stroke_c2 = stroke_colors[0], stroke_colors[-1] 
+    stroke_c1, stroke_c2 = stroke_colors[0], stroke_colors[-1]
 
     stroke_fill = (
         rnd.randint(stroke_c1[0], stroke_c2[0]),
