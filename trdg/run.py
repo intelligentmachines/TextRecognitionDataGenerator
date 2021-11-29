@@ -312,7 +312,7 @@ def parse_arguments():
         "--word_split",
         action="store_true",
         help="Split on words instead of on characters (preserves ligatures, no character spacing)",
-        default=False,
+        default=True,
     )
     parser.add_argument(
         "-stw",
