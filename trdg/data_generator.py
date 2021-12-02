@@ -56,7 +56,11 @@ class FakeTextDataGenerator(object):
         
     ):
         image = None
-
+        # margins = []
+        # for i in range(4):
+        #     rand = rnd.randint(0, 5)
+        #     margins.append(rand)
+        fit = rnd.randint(0,1)
         margin_top, margin_left, margin_bottom, margin_right = margins
         horizontal_margin = margin_left + margin_right
         vertical_margin = margin_top + margin_bottom
@@ -220,7 +224,7 @@ class FakeTextDataGenerator(object):
         # Set the brightness of the image to the desired value#
         #######################################################
 
-        final_image = brightness_generator.add_brightness(final_image,brightness_value)
+        final_image = brightness_generator.add_brightness(final_image)
 
         ############################################
         # Change image mode (RGB, grayscale, etc.) #
@@ -232,8 +236,9 @@ class FakeTextDataGenerator(object):
         ############################
         # Crop the image randomly #
         ###########################
-
-        final_image = random_crop_generator.get_random_crop(final_image)
+        print(fit)
+        if not fit:
+            final_image = random_crop_generator.get_random_crop(final_image)
 
         
 
