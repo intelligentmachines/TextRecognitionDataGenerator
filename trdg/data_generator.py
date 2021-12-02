@@ -2,6 +2,8 @@ import os
 import random as rnd
 
 from PIL import Image, ImageFilter
+import matplotlib.pyplot as plt
+import numpy as np
 
 from trdg import computer_text_generator, background_generator, distorsion_generator
 
@@ -80,15 +82,19 @@ class FakeTextDataGenerator(object):
                 stroke_width, 
                 stroke_fill,
             )
+        
+        # plt.imshow(np.array(image))
         random_angle = rnd.randint(0 - skewing_angle, skewing_angle)
 
         rotated_img = image.rotate(
             skewing_angle if not random_skew else random_angle, expand=1
         )
-
+        # plt.imshow(np.array(rotated_img))
+        
         rotated_mask = mask.rotate(
             skewing_angle if not random_skew else random_angle, expand=1
         )
+        # rotated_mask.show()
 
         #############################
         # Apply distorsion to image #
