@@ -5,7 +5,7 @@ from PIL import Image, ImageFilter
 import matplotlib.pyplot as plt
 import numpy as np
 
-from trdg import computer_text_generator, background_generator, distorsion_generator
+from trdg import computer_text_generator, background_generator, distorsion_generator,brightness_generator,random_crop_generator
 
 try:
     from trdg import handwritten_text_generator
@@ -51,12 +51,18 @@ class FakeTextDataGenerator(object):
         output_mask,
         word_split,
         image_dir,
+        brightness_value,
         stroke_width=0, 
         stroke_fill="#282828",
         image_mode="RGB", 
+        
     ):
         image = None
-
+        # margins = []
+        # for i in range(4):
+        #     rand = rnd.randint(0, 5)
+        #     margins.append(rand)
+        fit = rnd.randint(0,1)
         margin_top, margin_left, margin_bottom, margin_right = margins
         horizontal_margin = margin_left + margin_right
         vertical_margin = margin_top + margin_bottom
@@ -219,13 +225,28 @@ class FakeTextDataGenerator(object):
         )
         final_image = background_img.filter(gaussian_filter)
         final_mask = background_mask.filter(gaussian_filter)
-        
+
+        #######################################################
+        # Set the brightness of the image to the desired value#
+        #######################################################
+
+        final_image = brightness_generator.add_brightness(final_image)
+
         ############################################
         # Change image mode (RGB, grayscale, etc.) #
         ############################################
         
         final_image = final_image.convert(image_mode)
         final_mask = final_mask.convert(image_mode) 
+
+        ############################
+        # Crop the image randomly #
+        ###########################
+        print(fit)
+        if not fit:
+            final_image = random_crop_generator.get_random_crop(final_image)
+
+        
 
         #####################################
         # Generate name for resulting image #

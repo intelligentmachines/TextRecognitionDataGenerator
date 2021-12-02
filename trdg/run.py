@@ -339,6 +339,15 @@ def parse_arguments():
              "images stored with one pixel per byte, etc.",
         default="RGB",
     )
+    parser.add_argument(
+        "-br",
+        "--brightness_value",
+        type=float,
+        nargs="?",
+        help="Define the brightness of the image. factor of 1 gives original image. Making the factor towards 0 makes the image black,"
+             "while factor>1 brightens the image",
+        default=1.0,
+    )
     return parser.parse_args()
 
 
@@ -467,6 +476,7 @@ def main():
                 [args.output_mask] * string_count,
                 [args.word_split] * string_count,
                 [args.image_dir] * string_count,
+                [args.brightness_value] * string_count,
                 # [args.stroke_width] * string_count,
                 # [args.stroke_fill] * string_count,
                 # [args.image_mode] * string_count,
