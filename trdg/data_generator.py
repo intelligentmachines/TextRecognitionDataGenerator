@@ -242,7 +242,7 @@ class FakeTextDataGenerator(object):
         ############################
         # Crop the image randomly #
         ###########################
-        print(fit)
+        # print(fit)
         if not fit:
             final_image = random_crop_generator.get_random_crop(final_image)
 
