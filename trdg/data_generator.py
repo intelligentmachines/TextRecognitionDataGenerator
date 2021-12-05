@@ -213,7 +213,6 @@ class FakeTextDataGenerator(object):
         #######################
         # Apply gaussian blur #
         #######################
-
         gaussian_filter = ImageFilter.GaussianBlur(
             radius=blur if not random_blur else rnd.randint(0, blur)
         )
@@ -236,7 +235,7 @@ class FakeTextDataGenerator(object):
         ############################
         # Crop the image randomly #
         ###########################
-        print(fit)
+        #print(fit)
         if not fit:
             final_image = random_crop_generator.get_random_crop(final_image)
 

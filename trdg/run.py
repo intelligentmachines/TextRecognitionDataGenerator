@@ -312,7 +312,7 @@ def parse_arguments():
         "--word_split",
         action="store_true",
         help="Split on words instead of on characters (preserves ligatures, no character spacing)",
-        default=True,
+        default=False,
     )
     parser.add_argument(
         "-stw",
@@ -476,7 +476,7 @@ def main():
                 [args.output_mask] * string_count,
                 [args.word_split] * string_count,
                 [args.image_dir] * string_count,
-                [args.brightness_value] * string_count,
+                #[args.brightness_value] * string_count,
                 # [args.stroke_width] * string_count,
                 # [args.stroke_fill] * string_count,
                 # [args.image_mode] * string_count,

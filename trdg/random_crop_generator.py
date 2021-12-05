@@ -10,8 +10,8 @@ def get_random_crop(image):
 
     crop_height_up = random.randint(0,8)
     crop_height_down = random.randint(0,8)
-    crop_width_left = random.randint(0,7)
-    crop_width_right = random.randint(0,7)
+    crop_width_left = random.randint(0,8)
+    crop_width_right = random.randint(0,8)
 
     #print(crop_height_up,crop_height_down,crop_width_left,crop_width_right)
     

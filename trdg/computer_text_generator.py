@@ -42,11 +42,11 @@ def _generate_horizontal_text(
     text, font, text_color, font_size, space_width, character_spacing, fit, word_split,
     stroke_width=0, stroke_fill="#282828"
 ):
+    
     # specify font size range here
     font_size = rnd.randint(8, 12)
-
     image_font = ImageFont.truetype(font=font, size=font_size)
-
+    print(text,font.split("/")[-1],font_size)
     space_width = int(image_font.getsize(" ")[0] * space_width)
     if word_split:
         splitted_text = []
@@ -74,13 +74,11 @@ def _generate_horizontal_text(
 
     colors = [ImageColor.getrgb(c) for c in text_color.split(",")]
     c1, c2 = colors[0], colors[-1]
-
     fill = (
         rnd.randint(min(c1[0], c2[0]), max(c1[0], c2[0])),
         rnd.randint(min(c1[1], c2[1]), max(c1[1], c2[1])),
         rnd.randint(min(c1[2], c2[2]), max(c1[2], c2[2])),
     )
-
     stroke_colors = [ImageColor.getrgb(c) for c in stroke_fill.split(",")]
     stroke_c1, stroke_c2 = stroke_colors[0], stroke_colors[-1]
 
@@ -92,13 +90,13 @@ def _generate_horizontal_text(
         rnd.randint(min(stroke_c1[2], stroke_c2[2]),
                     max(stroke_c1[2], stroke_c2[2])),
     )
-
+   
     for i, p in enumerate(splitted_text):
         txt_img_draw.text(
             (sum(piece_widths[0:i]) + i *
              character_spacing * int(not word_split), 0),
             p,
-            fill=fill,
+            fill=(0,0,0),
             font=image_font,
             stroke_width=stroke_width,
             stroke_fill=stroke_fill,
@@ -112,7 +110,6 @@ def _generate_horizontal_text(
             stroke_width=stroke_width,
             stroke_fill=stroke_fill,
         )
-
     if fit:
         return txt_img.crop(txt_img.getbbox()), txt_mask.crop(txt_img.getbbox())
     else:
