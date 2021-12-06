@@ -57,6 +57,8 @@ class FakeTextDataGenerator(object):
         image_mode="RGB", 
         
     ):
+        size = rnd.randint(16, size)
+        
         image = None
         # margins = []
         # for i in range(4):
@@ -243,8 +245,8 @@ class FakeTextDataGenerator(object):
         # Crop the image randomly #
         ###########################
         # print(fit)
-        if not fit:
-            final_image = random_crop_generator.get_random_crop(final_image)
+        # if not fit:
+        #     final_image = random_crop_generator.get_random_crop(final_image)
 
         
 
