@@ -393,20 +393,23 @@ def main():
 
     # Creating synthetic sentences (or word)
     strings = []
-    length = rnd.randint(1,6)
+
+    # specify range for random number of words here
+    # length = rnd.randint(1,6)
+    
     if args.use_wikipedia:
-        strings = create_strings_from_wikipedia(length, args.count, args.language)
+        strings = create_strings_from_wikipedia(args.length, args.count, args.language)
     elif args.input_file != "":
         strings1 = create_strings_from_file(args.input_file, args.count)
         for _ in range(0, args.count):
             current_string = ""
-            for _ in range(0, rnd.randint(1, length) if args.random else length):
+            for _ in range(0, rnd.randint(1, args.length) if args.random else args.length):
                 current_string += rnd.choice(strings1)
                 current_string += " "
             strings.append(current_string[:-1])
     elif args.random_sequences:
         strings = create_strings_randomly(
-            length,
+            args.length,
             args.random,
             args.count,
             args.include_letters,
@@ -423,7 +426,7 @@ def main():
             args.name_format = 2
     else:
         strings = create_strings_from_dict(
-            length, args.random, args.count, lang_dict
+            args.length, args.random, args.count, lang_dict
         )
 
     if args.language == "ar":
@@ -477,9 +480,9 @@ def main():
                 [args.word_split] * string_count,
                 [args.image_dir] * string_count,
                 [args.brightness_value] * string_count,
-                [args.stroke_width] * string_count,
-                [args.stroke_fill] * string_count,
-                [args.image_mode] * string_count,
+                # [args.stroke_width] * string_count,
+                # [args.stroke_fill] * string_count,
+                # [args.image_mode] * string_count,
             ),
         ),
         total=args.count,
