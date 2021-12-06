@@ -111,11 +111,12 @@ def create_strings_randomly(length, allow_variable, count, let, num, sym, lang):
         else:
             pool += string.ascii_letters
     if num:
-        pool += "০, ১, ২, ৩, ৪, ৫, ৬, ৭, ৮, ৯"
+        pool += "০১২৩৪৫৬৭৮৯ "
     if sym:
         symbols = ['ঁ', 'ং', 'ঃ',  '়', 'া', 'ি', 'ী', 'ু', 'ূ', 'ৃ',  'ৗ', 'ে', 'ৈ', 'ো', 'ৌ', '্']
         pool += "".join([symbols[i] for i in range(len(symbols))])
-        pool += ":.+-<<<<<<<<<<</," 
+        pool += ":.+-/,"
+        # pool += "/" 
 
 
     if lang == "cn":
