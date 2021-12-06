@@ -97,12 +97,27 @@ def create_strings_randomly(length, allow_variable, count, let, num, sym, lang):
             pool += "".join(
                 [chr(i) for i in range(19968, 40908)]
             )  # Unicode range of CHK characters
+        if lang == 'bn':
+            character_list = ['অ', 'আ', 'ই', 'ঈ', 'উ', 'ঊ' ,'ঋ' ,'এ' ,'ঐ', 'ও', 'ঔ',
+                            'ক', 'খ', 'গ', 'ঘ', 'ঙ',
+                            'চ', 'ছ', 'জ', 'ঝ', 'ঞ',
+                            'ট', 'ঠ', 'ড', 'ঢ', 'ণ',
+                            'ত', 'থ', 'দ', 'ধ', 'ন',
+                            'প', 'ফ', 'ব', 'ভ', 'ম',
+                            'য', 'র', 'ল', 'শ',
+                            'ষ', 'স', 'হ',                           
+                            'ড়', 'ঢ়', 'য়', '৳']
+            pool += "".join([character_list[i] for i in range(len(character_list))]) # Unicode range for Bangla characters
         else:
             pool += string.ascii_letters
     if num:
-        pool += "0123456789"
+        pool += "০১২৩৪৫৬৭৮৯ "
     if sym:
-        pool += ":.+-<<<<<<<<<<<"
+        symbols = ['ঁ', 'ং', 'ঃ',  '়', 'া', 'ি', 'ী', 'ু', 'ূ', 'ৃ',  'ৗ', 'ে', 'ৈ', 'ো', 'ৌ', '্']
+        pool += "".join([symbols[i] for i in range(len(symbols))])
+        pool += ":.+-/,"
+        # pool += "/" 
+
 
     if lang == "cn":
         min_seq_len = 1

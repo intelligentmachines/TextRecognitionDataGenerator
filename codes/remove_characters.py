@@ -15,7 +15,7 @@ def remove_character(string):
                 'ষ', 'স', 'হ', 
                 'ঽ', 'ড়', 'ঢ়', 'য়',
                 '০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯', 
-                '/',':',",",'-', ' ']
+                '/', ':', '-', ' ']
     length = len(string)
     for i in range(length):
         #print(string[i])
@@ -28,14 +28,19 @@ def main(args):
   
     for filename in os.listdir(args.i):
         file_path = args.i + '/' + filename
-        new_filename = filename.split('.txt')[0] + '-mod.txt'
+        new_filename = filename.split('.txt')[0] + '_mod.txt'
         new_file_path = args.o + '/' + new_filename
-        with open(file_path) as f:
+        with open(file_path, 'r') as f:
         # reads every line and saves it into a list
-            line = f.readlines()
-            line = remove_character(str(line))
-        with open(new_file_path, 'w') as f:
-            f.write(line)
+            lines = f.readlines()
+            line = remove_character(str(lines))
+        # print(line)
+        words = line.split(' ')
+        # print(words)
+        with open(new_file_path, 'a+') as f:
+            for word in words:
+                f.write(word)
+                f.write('\n')
     return
   
 # Driver Code

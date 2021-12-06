@@ -104,3 +104,6 @@ ENV/
 .idea/*
 
 trdg/out
+trdg/nid-cards-english
+trdg/augmentation_test.ipynb
+trdg/augmentation.ipynb

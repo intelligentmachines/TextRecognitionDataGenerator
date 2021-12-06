@@ -13,7 +13,6 @@ def get_random_crop(image):
     crop_width_left = random.randint(0,8)
     crop_width_right = random.randint(0,8)
 
-    #print(crop_height_up,crop_height_down,crop_width_left,crop_width_right)
     
     area = (crop_width_left, crop_height_up, width - crop_width_right, height-crop_height_down)
     crop = image.crop(area)
