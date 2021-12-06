@@ -2,14 +2,16 @@ import os
 import random as rnd
 
 from PIL import Image, ImageFilter
-
-from trdg import computer_text_generator, background_generator, distorsion_generator,brightness_generator,random_crop_generator
+try:
+    from trdg import computer_text_generator, background_generator, distorsion_generator,brightness_generator,random_crop_generator
+except ImportError as e:
+    print("Missing modules for text generation.")
 
 try:
     from trdg import handwritten_text_generator
 except ImportError as e:
     print("Missing modules for handwritten text generation.")
-
+    
 
 class FakeTextDataGenerator(object):
     @classmethod
@@ -49,7 +51,6 @@ class FakeTextDataGenerator(object):
         output_mask,
         word_split,
         image_dir,
-        brightness_value,
         stroke_width=0, 
         stroke_fill="#282828",
         image_mode="RGB", 
