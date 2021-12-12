@@ -106,16 +106,21 @@ def create_strings_randomly(length, allow_variable, count, let, num, sym, lang):
                             'প', 'ফ', 'ব', 'ভ', 'ম',
                             'য', 'র', 'ল', 'শ',
                             'ষ', 'স', 'হ',                           
-                            'ড়', 'ঢ়', 'য়', '৳']
-            pool += "".join([character_list[i] for i in range(len(character_list))]) # Unicode range for Bangla characters
+                            'ড়', 'ঢ়', 'য়']
+            # symbols = ['ঁ', 'ং', 'ঃ',  '়', 'া', 'ি', 'ী', 'ু', 'ূ', 'ৃ',  'ৗ', 'ে', 'ৈ', 'ো', 'ৌ', '্']
+            # for i in range(11, len(character_list)-1):
+            #     for j in range(len(symbols)):
+            #         letter = character_list[i] + symbols[j]
+            #         pool += "".join(letter)
+            pool += "".join([character_list[i] for i in range(len(character_list))])
         else:
             pool += string.ascii_letters
     if num:
         pool += "০১২৩৪৫৬৭৮৯ "
     if sym:
-        symbols = ['ঁ', 'ং', 'ঃ',  '়', 'া', 'ি', 'ী', 'ু', 'ূ', 'ৃ',  'ৗ', 'ে', 'ৈ', 'ো', 'ৌ', '্']
-        pool += "".join([symbols[i] for i in range(len(symbols))])
-        pool += ":.+-/,"
+        # symbols = ['ঁ', 'ং', 'ঃ',  '়', 'া', 'ি', 'ী', 'ু', 'ূ', 'ৃ',  'ৗ', 'ে', 'ৈ', 'ো', 'ৌ', '্']
+        # pool += "".join([symbols[i] for i in range(len(symbols))])
+        pool += ":.+-/,৳"
         # pool += "/" 
 
 
