@@ -5,19 +5,23 @@ We generate image data in the following steps:
 Generate using normal augmentation options built-in the trdg repo (use -na 2 argument for ground truth generation)
 * For Bangla names
 ```
-python run.py -c 30000 -i texts/test/bangla_names_mod.txt -l bn -w 5 -r -f 64 -k 3 -rk -bl 1 -rbl -na 2 -id images --output_dir bangla_names -t 4
+python run.py -c 15000 -i texts/test/bangla_names_mod.txt -l bn -w 5 -r -f 64 -k 3 -rk -bl 1 -rbl -na 2 -id images --output_dir bangla_names -t 4
   ```
   * For Common Bangla words
 ```
-python run.py -c 40000 -i texts/all-words.txt -l bn -w 10 -r -f 64 -k 3 -rk -bl 1 -rbl -na 2 -id images --output_dir bangla_common_words -t 4
+python run.py -c 20000 -i texts/all-words.txt -l bn -w 10 -r -f 64 -k 3 -rk -bl 1 -rbl -na 2 -id images --output_dir bangla_common_words -t 4
  ```
   * For Bangla Numbers
 ```
-python run.py -c 15000 -rs -num -sym -l bn -f 64 -k 3 -rk -bl 1 -rbl -na 2 -id images -t 4 --output_dir bangla_nums
+python run.py -c 7500 -rs -num -sym -l bn -f 64 -k 3 -rk -bl 1 -rbl -na 2 -id images -t 4 --output_dir bangla_nums
 ```
   * For Random Sequences
 ```
-python run.py -c 15000 -rs -num -sym -l bn -f 64 -k 3 -rk -bl 1 -rbl -na 2 -id images -t 4 --output_dir random_seq
+python run.py -c 7500 -rs -num -sym -l bn -f 64 -k 3 -rk -bl 1 -rbl -na 2 -id images -t 4 --output_dir random_seq
+```
+  * For long text lines
+```
+python run.py -c 1500 -i texts/all-words.txt -l bn -w 10 -f 64 -bl 1 -rbl -na 2 -id images --output_dir long -t 4
 ```
 * Create the following directories
   * **gt_txt** - we move the labels.txt files created for every batch here
