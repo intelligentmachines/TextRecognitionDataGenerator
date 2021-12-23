@@ -21,7 +21,7 @@ python run.py -c 7500 -rs -num -sym -l bn -f 64 -k 3 -rk -bl 1 -rbl -na 2 -id im
 ```
   * For long text lines
 ```
-python run.py -c 1500 -i texts/all-words.txt -l bn -w 10 -f 64 -bl 1 -rbl -na 2 -id images --output_dir long -t 4
+python run.py -c 15000 -i texts/all-words.txt -l bn -w 10 -f 64 -bl 1 -rbl -na 2 -id images --output_dir long -t 4
 ```
 * Create the following directories
   * **gt_txt** - we move the labels.txt files created for every batch here
