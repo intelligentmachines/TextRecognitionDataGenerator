@@ -1,5 +1,6 @@
 import argparse
 import errno
+import string
 from multiprocessing import Pool
 import os
 import random as rnd
@@ -12,7 +13,7 @@ from trdg.string_generator import (
     create_strings_from_dict,
     create_strings_from_file,
     create_strings_from_wikipedia,
-    create_strings_randomly,
+    # create_strings_randomly,
 )
 from trdg.utils import load_dict, load_fonts
 from trdg.data_generator import FakeTextDataGenerator
@@ -23,6 +24,46 @@ def margins(margin):
     if len(margins_) == 1:
         return [int(margins_[0])] * 4
     return [int(m) for m in margins_]
+
+
+def create_strings_randomly(length, allow_variable, count, let, num, sym, lang):
+    """
+        Create all strings by randomly sampling from a pool of characters.
+    """
+
+    # If none specified, use all three
+    if True not in (let, num, sym):
+        let, num, sym = True, True, True
+
+    pool = ""
+    if let:
+        if lang == "cn":
+            pool += "".join(
+                [chr(i) for i in range(19968, 40908)]
+            )  # Unicode range of CHK characters
+        else:
+            pool += string.ascii_letters
+    if num:
+        pool += "0123456789"
+    if sym:
+        pool += ":.+-<<<<<<<<<<<"
+
+    if lang == "cn":
+        min_seq_len = 1
+        max_seq_len = 2
+    else:
+        min_seq_len = 2
+        max_seq_len = 10
+
+    strings = []
+    for _ in range(0, count):
+        current_string = ""
+        for _ in range(0, rnd.randint(1, length) if allow_variable else length):
+            seq_len = rnd.randint(min_seq_len, max_seq_len)
+            current_string += "".join([rnd.choice(pool) for _ in range(seq_len)])
+            current_string += " "
+        strings.append(current_string[:-1])
+    return strings
 
 
 def parse_arguments():
