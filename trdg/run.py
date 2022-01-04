@@ -46,7 +46,8 @@ def create_strings_randomly(length, allow_variable, count, let, num, sym, lang):
     if num:
         pool += "0123456789"
     if sym:
-        pool += ":.+-<<<<<<<<<<<"
+        # pool += ":.+-<<<<<<<<<<<"
+        pool += "<<<<<<<<<<<"
 
     if lang == "cn":
         min_seq_len = 1
@@ -59,7 +60,8 @@ def create_strings_randomly(length, allow_variable, count, let, num, sym, lang):
     for _ in range(0, count):
         current_string = ""
         for _ in range(0, rnd.randint(1, length) if allow_variable else length):
-            seq_len = rnd.randint(min_seq_len, max_seq_len)
+            # seq_len = rnd.randint(min_seq_len, max_seq_len)
+            seq_len = 30
             current_string += "".join([rnd.choice(pool) for _ in range(seq_len)])
             current_string += " "
         strings.append(current_string[:-1])
