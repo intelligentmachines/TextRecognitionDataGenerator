@@ -270,7 +270,7 @@ def parse_arguments():
         type=margins,
         nargs="?",
         help="Define the margins around the text when rendered. In pixels",
-        default=(0, 0, 0, 0),
+        default=(5, 5, 5, 5),
     )
     parser.add_argument(
         "-fi",
@@ -387,9 +387,6 @@ def main():
     # Creating synthetic sentences (or word)
     strings = []
 
-    # specify range for random number of words here
-    # length = rnd.randint(1,6)
-    
     if args.use_wikipedia:
         strings = create_strings_from_wikipedia(args.length, args.count, args.language)
     elif args.input_file != "":

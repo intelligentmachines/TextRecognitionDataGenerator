@@ -1,18 +1,11 @@
 import os
 import random as rnd
 
-from PIL import Image, ImageFilter
-<<<<<<< HEAD
-try:
-    from trdg import computer_text_generator, background_generator, distorsion_generator,brightness_generator,random_crop_generator
-except ImportError as e:
-    print("Missing modules for text generation.")
-=======
+from PIL import Image, ImageDraw, ImageFilter
 import matplotlib.pyplot as plt
 import numpy as np
 
 from trdg import computer_text_generator, background_generator, distorsion_generator,brightness_generator,random_crop_generator
->>>>>>> porichoy-bangla
 
 try:
     from trdg import handwritten_text_generator
@@ -96,8 +89,11 @@ class FakeTextDataGenerator(object):
                 stroke_width, 
                 stroke_fill,
             )
+        # w,h = image.size
+        # shape = [(0,0),(w,0)]
+        # draw = ImageDraw.Draw(image)
+        # draw.line(shape,fill="black",width = 2)
         
-        # plt.imshow(np.array(image))
         random_angle = rnd.randint(0 - skewing_angle, skewing_angle)
 
         rotated_img = image.rotate(
@@ -249,15 +245,9 @@ class FakeTextDataGenerator(object):
         ############################
         # Crop the image randomly #
         ###########################
-<<<<<<< HEAD
         #print(fit)
         if not fit:
             final_image = random_crop_generator.get_random_crop(final_image)
-=======
-        # print(fit)
-        # if not fit:
-        #     final_image = random_crop_generator.get_random_crop(final_image)
->>>>>>> porichoy-bangla
 
         
 

@@ -43,11 +43,7 @@ def _generate_horizontal_text(
     stroke_width=0, stroke_fill="#282828"
 ):
     # specify font size range here
-<<<<<<< HEAD
     #font_size = rnd.randint(8, 12)
-=======
-    # font_size = rnd.randint(8, 12)
->>>>>>> porichoy-bangla
 
     image_font = ImageFont.truetype(font=font, size=font_size)
 
