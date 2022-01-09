@@ -97,30 +97,14 @@ def create_strings_randomly(length, allow_variable, count, let, num, sym, lang):
             pool += "".join(
                 [chr(i) for i in range(19968, 40908)]
             )  # Unicode range of CHK characters
-        if lang == 'bn':
-            character_list = ['অ', 'আ', 'ই', 'ঈ', 'উ', 'ঊ' ,'ঋ' ,'এ' ,'ঐ', 'ও', 'ঔ',
-                            'ক', 'খ', 'গ', 'ঘ', 'ঙ',
-                            'চ', 'ছ', 'জ', 'ঝ', 'ঞ',
-                            'ট', 'ঠ', 'ড', 'ঢ', 'ণ',
-                            'ত', 'থ', 'দ', 'ধ', 'ন',
-                            'প', 'ফ', 'ব', 'ভ', 'ম',
-                            'য', 'র', 'ল', 'শ',
-                            'ষ', 'স', 'হ',                           
-                            'ড়', 'ঢ়', 'য়']
-            # symbols = ['ঁ', 'ং', 'ঃ',  '়', 'া', 'ি', 'ী', 'ু', 'ূ', 'ৃ',  'ৗ', 'ে', 'ৈ', 'ো', 'ৌ', '্']
-            # for i in range(11, len(character_list)-1):
-            #     for j in range(len(symbols)):
-            #         letter = character_list[i] + symbols[j]
-            #         pool += "".join(letter)
-            pool += "".join([character_list[i] for i in range(len(character_list))])
+
         else:
             pool += string.ascii_letters
     if num:
-        pool += "০১২৩৪৫৬৭৮৯"
+        pool += "0123456789"
     if sym:
-        # symbols = ['ঁ', 'ং', 'ঃ',  '়', 'া', 'ি', 'ী', 'ু', 'ূ', 'ৃ',  'ৗ', 'ে', 'ৈ', 'ো', 'ৌ', '্']
-        # pool += "".join([symbols[i] for i in range(len(symbols))])
-        pool += ":.+-/,৳"
+        pool += "<<<<<<<<<<<<"
+        # pool += ":.+-/,<>'\'!@#$%^&*()~`_=;"
         # pool += "/" 
 
 
@@ -135,7 +119,8 @@ def create_strings_randomly(length, allow_variable, count, let, num, sym, lang):
     for _ in range(0, count):
         current_string = ""
         for _ in range(0, rnd.randint(1, length) if allow_variable else length):
-            seq_len = rnd.randint(min_seq_len, max_seq_len)
+            # seq_len = rnd.randint(min_seq_len, max_seq_len)
+            seq_len = 30
             current_string += "".join([rnd.choice(pool) for _ in range(seq_len)])
             current_string += " "
         strings.append(current_string[:-1])
